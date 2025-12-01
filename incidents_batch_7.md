@@ -1,0 +1,24 @@
+# Boko Haram Incidents: Batch 7 (January 2014 – March 2014)
+
+| Incident_ID | Date | State | City/Town/Village | Type of Attack | Estimated Fatalities | Primary Source | Secondary Source(s) | Summary | Verification Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BH-121 | 2014-01-14 | Borno | Maiduguri | Bombing | 43 | [ReliefWeb](https://reliefweb.int/report/nigeria/timeline-boko-haram-attacks-nigeria) | Al Jazeera | Car bomb explosion near the post office in Maiduguri. | Confirmed |
+| BH-122 | 2014-01-19 | Borno | Alau Ngawo Fatie | Raid | 18 | [ReliefWeb](https://reliefweb.int/report/nigeria/timeline-boko-haram-attacks-nigeria) | AFP | Gunmen attacked the village, shooting residents and burning homes. | Confirmed |
+| BH-123 | 2014-01-26 | Borno | Kawuri | Massacre | 52–85 | [BBC](https://www.bbc.com/news/world-africa-25910965) | Reuters | Gunmen attacked a busy market, setting off explosives and shooting civilians. | Confirmed |
+| BH-124 | 2014-01-26 | Adamawa | Waga Chakawa | Church Massacre | 31–47 | [Reuters](https://www.reuters.com/article/idUSBREA0Q0P620140127) | BBC | Attack on a Catholic church during Sunday mass; militants used guns and explosives. | Confirmed |
+| BH-125 | 2014-01-31 | Borno | Maiduguri | Clashes | 10+ | [Vanguard](https://www.vanguardngr.com/2014/02/troops-repel-boko-haram-attack-maiduguri/) | Daily Trust | Military repelled an attack on Giwa barracks; civilian casualties reported. | Confirmed |
+| BH-126 | 2014-02-11 | Borno | Konduga | Massacre | 39–62 | [Al Jazeera](https://www.aljazeera.com/news/2014/2/12/dozens-killed-in-nigeria-village-attack) | BBC | Gunmen destroyed the town, killing dozens and abducting 20 girls. | Confirmed |
+| BH-127 | 2014-02-15 | Borno | Izghe | Massacre | 106 | [BBC](https://www.bbc.com/news/world-africa-26220300) | Reuters | Militants rounded up male residents and slaughtered them; entire village razed. | Confirmed |
+| BH-128 | 2014-02-15 | Yobe | Damaturu | Bombing | 10+ | [ReliefWeb](https://reliefweb.int/report/nigeria/timeline-boko-haram-attacks-nigeria) | AFP | Suicide bombing/attack in Damaturu. | Confirmed |
+| BH-129 | 2014-02-19 | Borno | Bama | Raid | 60–98 | [Reuters](https://www.reuters.com/article/idUSBREA1I0P620140219) | BBC | Massive attack on Bama town; palace of the Shehu of Bama attacked. | Confirmed |
+| BH-130 | 2014-02-24 | Yobe | Buni Yadi | School Massacre | 43–59 | [BBC](https://www.bbc.com/news/world-africa-26343762) | Al Jazeera | Gunmen attacked Federal Government College, killing male students and burning buildings. | Confirmed |
+| BH-131 | 2014-02-26 | Adamawa | Michika / Madagali | Raid | 37 | [Vanguard](https://www.vanguardngr.com/2014/02/37-killed-adamawa-attacks/) | Daily Trust | Attacks on villages in Michika and Madagali LGAs; banks and churches destroyed. | Confirmed |
+| BH-132 | 2014-03-01 | Borno | Maiduguri | Bombing | 51–52 | [BBC](https://www.bbc.com/news/world-africa-26403673) | Reuters | Twin car bomb explosions in Gomari ward of Maiduguri. | Confirmed |
+| BH-133 | 2014-03-01 | Borno | Mainok | Raid | 39 | [ReliefWeb](https://reliefweb.int/report/nigeria/timeline-boko-haram-attacks-nigeria) | AFP | Gunmen attacked the village, shooting residents and burning homes. | Confirmed |
+| BH-134 | 2014-03-02 | Borno | Mafa | Raid | 29–32 | [Al Jazeera](https://www.aljazeera.com/news/2014/3/3/scores-killed-in-nigeria-violence) | Reuters | Attack on Mafa village; residents had largely fled but some remained. | Confirmed |
+| BH-135 | 2014-03-03 | Borno | Jakana | Raid | 29 | [ReliefWeb](https://reliefweb.int/report/nigeria/timeline-boko-haram-attacks-nigeria) | Daily Trust | Gunmen attacked Jakana village, killing residents and police officers. | Confirmed |
+| BH-136 | 2014-03-14 | Borno | Maiduguri (Giwa Barracks) | Raid / Jailbreak | 600+ | [Amnesty International](https://www.amnesty.org/en/latest/news/2014/03/nigeria-more-600-executed-after-giwa-barracks-attack/) | HRW | BH attacked barracks to free detainees; hundreds killed in ensuing chaos and reprisals. | Confirmed |
+| BH-137 | 2014-03-19 | Borno | Ngoshe | Raid | 11 | [Vanguard](https://www.vanguardngr.com/2014/03/boko-haram-kills-11-borno-village/) | Daily Trust | Attack on a border village. | Confirmed |
+| BH-138 | 2014-03-24 | Borno | Bama (Market) | Bombing | 15+ | [Daily Trust](https://allafrica.com/stories/201403250636.html) | Vanguard | Explosion at a busy market in Bama. | Confirmed |
+| BH-139 | 2014-03-27 | Borno | Mafa | Raid | 5 | [Vanguard](https://www.vanguardngr.com/2014/03/boko-haram-kills-5-borno-village/) | ThisDay | Fresh attack on Mafa village. | Confirmed |
+| BH-140 | 2014-03-30 | Borno | Dalwa | Raid | 20 | [Reuters](https://www.reuters.com/article/idUSBREA2U0P620140331) | Al Jazeera | Gunmen attacked Dalwa-Masuba village, killing residents. | Confirmed |

@@ -1,0 +1,24 @@
+# Boko Haram Incidents: Batch 2 (July 2011 – December 2011)
+
+| Incident_ID | Date | State | City/Town/Village | Type of Attack | Estimated Fatalities | Primary Source | Secondary Source(s) | Summary | Verification Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BH-021 | 2011-07-03 | Borno | Maiduguri | Bombing / Shooting | 10 | [Vanguard](https://www.vanguardngr.com/2011/07/boko-haram-kills-10-in-maiduguri-bomb-blast/) | AFP | Bomb blast at a beer garden in Maiduguri followed by shootings. | Confirmed |
+| BH-022 | 2011-07-09 | Borno | Maiduguri | Clash | 11 (Militants) | [BBC](https://www.bbc.com/news/world-africa-14093883) | Reuters | Military raid on Boko Haram hideout resulted in 11 sect members killed. | Confirmed |
+| BH-023 | 2011-08-19 | Borno | Maiduguri | Raid | 4 | [Daily Trust](https://allafrica.com/stories/201108220836.html) | ThisDay | Gunmen attacked a police station and bank, killing police officers and a civilian. | Confirmed |
+| BH-024 | 2011-08-25 | Adamawa | Gombi | Raid | 16 | [BBC](https://www.bbc.com/news/world-africa-14676504) | Reuters | Gun and bomb attacks on police stations and banks in Gombi. | Confirmed |
+| BH-025 | 2011-08-25 | Gombe | Gombe | Raid | 12 | [Vanguard](https://www.vanguardngr.com/2011/08/12-killed-in-gombe-attacks/) | AFP | Attacks on police stations and banks in Gombe city. | Confirmed |
+| BH-026 | 2011-08-26 | FCT | Abuja | Suicide Bombing | 23–25 | [UN News](https://news.un.org/en/story/2011/08/385032) | Al Jazeera | Suicide car bomb attack on the United Nations headquarters in Abuja. | Confirmed |
+| BH-027 | 2011-09-01 | Adamawa | Song | Shootout | 1 | [Daily Trust](https://allafrica.com/stories/201109020636.html) | Vanguard | Shootout between sect members and soldiers; one militant killed. | Confirmed |
+| BH-028 | 2011-09-04 | Borno | Maiduguri | Assassination | 1 | [Vanguard](https://www.vanguardngr.com/2011/09/boko-haram-kills-islamic-cleric-in-maiduguri/) | Daily Trust | Muslim cleric Malam Dala shot dead by sect members. | Confirmed |
+| BH-029 | 2011-09-12 | Bauchi | Misau | Raid | 7 | [BBC](https://www.bbc.com/news/world-africa-14890389) | Reuters | Attack on police station and bank; 4 policemen and 3 civilians killed. | Confirmed |
+| BH-030 | 2011-09-12 | Borno | Maiduguri (outskirts) | Ambush | 40 (Soldiers) | [Sahara Reporters](https://saharareporters.com/2011/09/14/boko-haram-ambush-kills-40-soldiers-borno) | Wikipedia | Reported ambush on military patrol; casualty figures high but cited by some sources. | Probable |
+| BH-031 | 2011-09-17 | Borno | Maiduguri | Assassination | 1 | [BBC](https://www.bbc.com/news/world-africa-14960783) | Al Jazeera | Babakura Fugu, brother-in-law of Mohammed Yusuf, shot dead after peace talks. | Confirmed |
+| BH-032 | 2011-11-02 | Borno | Maiduguri | Assassination | 1 | [Vanguard](https://www.vanguardngr.com/2011/11/boko-haram-kills-soldier-in-maiduguri/) | Daily Trust | Soldier shot dead at Maiduguri Monday Market. | Confirmed |
+| BH-033 | 2011-11-04 | Yobe / Borno | Damaturu / Maiduguri | Coordinated Attacks | 100–150 | [The Guardian](https://www.theguardian.com/world/2011/nov/05/nigeria-boko-haram-attacks-damaturu) | BBC | Massive coordinated bombings and shootings targeting police and churches. | Confirmed |
+| BH-034 | 2011-11-13 | Borno | Maiduguri | Assassination | 1 | [Daily Trust](https://allafrica.com/stories/201111140936.html) | Vanguard | Soldier killed by gunmen on motorcycle. | Confirmed |
+| BH-035 | 2011-11-27 | Borno | Maiduguri | Assassination | 1 | [Vanguard](https://www.vanguardngr.com/2011/11/boko-haram-kills-borno-govt-official/) | Daily Trust | Protocol officer in Borno governor's office shot dead. | Confirmed |
+| BH-036 | 2011-12-15 | Kano | Kano | Raid | 4 | [BBC](https://www.bbc.com/news/world-africa-16213689) | Reuters | Attack on Air Force comprehensive school; 4 officers killed. | Confirmed |
+| BH-037 | 2011-12-17 | Kano | Kano | Shootout | 7 | [Vanguard](https://www.vanguardngr.com/2011/12/kano-shootout-3-policemen-4-boko-haram-members-killed/) | AFP | Gun battle resulted in deaths of 3 police officers and 4 militants. | Confirmed |
+| BH-038 | 2011-12-22 | Borno | Maiduguri | Bombing / Shooting | 20 | [Reuters](https://www.reuters.com/article/idUSTRE7BL0R620111222) | BBC | Multiple explosions and shootings in Maiduguri. | Confirmed |
+| BH-039 | 2011-12-22 | Borno / Yobe | Maiduguri / Damaturu | Clashes | 68 | [Al Jazeera](https://www.aljazeera.com/news/2011/12/24/clashes-kill-dozens-in-northeast-nigeria) | AFP | Intense fighting between security forces and sect members over two days. | Confirmed |
+| BH-040 | 2011-12-25 | Niger | Madalla | Bombing | 42–44 | [BBC](https://www.bbc.com/news/world-africa-16330630) | CNN | Christmas Day bombing of St. Theresa Catholic Church. | Confirmed |

@@ -1,0 +1,24 @@
+# Boko Haram Incidents: Batch 6 (July 2013 – December 2013)
+
+| Incident_ID | Date | State | City/Town/Village | Type of Attack | Estimated Fatalities | Primary Source | Secondary Source(s) | Summary | Verification Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BH-101 | 2013-07-06 | Yobe | Mamudo | School Massacre | 42 | [BBC](https://www.bbc.com/news/world-africa-23209569) | Al Jazeera | Gunmen attacked Government Secondary School, killing students and staff. | Confirmed |
+| BH-102 | 2013-07-27 | Borno | Maiduguri | Raid | 20+ | [Reuters](https://www.reuters.com/article/idUSBRE96Q0P620130727) | ThisDay | Suspected BH members killed over 20 people in fishing villages near Lake Chad. | Confirmed |
+| BH-103 | 2013-08-04 | Borno | Bama | Raid | 17 (Militants) | [Al Jazeera](https://www.aljazeera.com/news/2013/8/5/dozens-killed-in-nigeria-clashes) | BBC | Attack on police base; 1 policeman and 17 insurgents killed. | Confirmed |
+| BH-104 | 2013-08-04 | Borno | Malam Fatori | Raid | 17 | [Vanguard](https://www.vanguardngr.com/2013/08/35-killed-in-borno-attacks/) | Daily Trust | Attack on Multi-National Joint Task Force base; 2 soldiers and 15 insurgents killed. | Confirmed |
+| BH-105 | 2013-08-11 | Borno | Konduga | Massacre | 44 | [The Guardian](https://www.theguardian.com/world/2013/aug/13/nigeria-gunmen-kill-20-mosque) | Reuters | Gunmen opened fire on worshippers at a mosque during morning prayers. | Confirmed |
+| BH-106 | 2013-08-16 | Borno | Konduga | Raid | 11 | [ReliefWeb](https://reliefweb.int/report/nigeria/timeline-boko-haram-attacks-nigeria) | AFP | Gunmen attacked civilians and a police station. | Confirmed |
+| BH-107 | 2013-08-19 | Borno | Damboa | Ambush | 5 | [Daily Trust](https://allafrica.com/stories/201308200636.html) | Vanguard | Ambush on civilian travelers. | Confirmed |
+| BH-108 | 2013-08-31 | Borno | Monguno | Clashes | 12 | [Vanguard](https://www.vanguardngr.com/2013/09/boko-haram-kills-12-nomads-in-borno/) | ThisDay | Nomads stormed BH hideout; 12 killed in ensuing clash. | Confirmed |
+| BH-109 | 2013-09-05 | Borno | Gajiram | Raid | 15 | [Al Jazeera](https://www.aljazeera.com/news/2013/9/6/suspected-boko-haram-gunmen-kill-15-in-market) | Reuters | Gunmen disguised as traders attacked a market. | Confirmed |
+| BH-110 | 2013-09-06 | Borno | Maiduguri (outskirts) | Clashes | 50 (Militants) | [BBC](https://www.bbc.com/news/world-africa-24006888) | AFP | Military air and ground assault on insurgent camps. | Confirmed |
+| BH-111 | 2013-09-15 | Borno | Gamboru Ngala | Raid | 17 | [Reuters](https://www.reuters.com/article/idUSBRE98F0P620130916) | Daily Trust | Attack on a vigilante group meeting; leader and local chief killed. | Confirmed |
+| BH-112 | 2013-09-17 | Borno | Benisheik | Massacre | 161 | [BBC](https://www.bbc.com/news/world-africa-24169543) | Al Jazeera | Militants dressed as soldiers set up checkpoints, shooting travelers and burning homes. | Confirmed |
+| BH-113 | 2013-09-19 | FCT | Abuja | Raid / Clashes | 8 | [Vanguard](https://www.vanguardngr.com/2013/09/abuja-killings-nhrc-summons-security-chiefs/) | Daily Trust | Security forces killed 8 squatters suspected of being BH members (disputed by rights groups). | Disputed (Victim status) |
+| BH-114 | 2013-09-29 | Yobe | Gujba | School Massacre | 40–50 | [The Guardian](https://www.theguardian.com/world/2013/sep/29/nigeria-college-attack-students-killed) | BBC | Gunmen attacked College of Agriculture, shooting students in their dorms. | Confirmed |
+| BH-115 | 2013-10-20 | Borno | Logumani | Ambush | 19 | [Reuters](https://www.reuters.com/article/idUSBRE99J0P620131020) | Al Jazeera | Gunmen dressed as soldiers stopped motorists and killed 19. | Confirmed |
+| BH-116 | 2013-10-24 | Yobe | Damaturu | Coordinated Attacks | 35 (Security) | [BBC](https://www.bbc.com/news/world-africa-24668613) | AFP | Massive attack on military barracks and police facilities. | Confirmed |
+| BH-117 | 2013-11-02 | Borno | Bama (road) | Ambush | 30+ | [Al Jazeera](https://www.aljazeera.com/news/2013/11/3/dozens-killed-in-nigeria-wedding-convoy-attack) | Reuters | Attack on a wedding convoy returning to Maiduguri. | Confirmed |
+| BH-118 | 2013-11-16 | Borno | Bita | Raid | 20 (Militants) | [Vanguard](https://www.vanguardngr.com/2013/11/military-kills-20-boko-haram-insurgents-borno/) | Daily Trust | Military raid on BH camp. | Confirmed |
+| BH-119 | 2013-12-02 | Borno | Maiduguri | Raid | 24 (Militants) | [BBC](https://www.bbc.com/news/world-africa-25189766) | AFP | Insurgents attacked air force base and military barracks; repelled with heavy casualties. | Confirmed |
+| BH-120 | 2013-12-20 | Borno | Bama | Raid | 20+ (Soldiers) | [Reuters](https://www.reuters.com/article/idUSBRE9BJ0P620131220) | ThisDay | Attack on military barracks in Bama; significant soldier casualties reported. | Confirmed |

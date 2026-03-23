@@ -1,0 +1,6 @@
+# Boko Haram Incidents: Batch 52 (January 2026 – March 2026)
+
+| Incident_ID | Date | State | City/Town/Village | Type of Attack | Estimated Fatalities | Primary Source | Secondary Source(s) | Summary | Verification Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BH-830 | 2026-01-04 | Borno | Unknown | Armed Attack | 30 | [Wikipedia Timeline](https://en.wikipedia.org/wiki/Timeline_of_the_Boko_Haram_insurgency) | Open Source Extracts | Eight Nigerian soldiers were killed by an ISWAP IED detonation targeting their vehicle near Damasak, Borno State.&#91;720&#93; On the same day, 30 people were killed after armed men attacked the village of Kasuwan-Daji, Niger state.&#91;721&#93; | Publicly Documented |
+| BH-831 | 2026-02-03 | Unknown | Unknown | Armed Attack | 162 | [Wikipedia Timeline](https://en.wikipedia.org/wiki/Timeline_of_the_Boko_Haram_insurgency) | Open Source Extracts | At least 162 people were killed after suspected armed jihadists attacked villages of Woro and Nuku in the Kwara state, western Nigeria. Another 13 people were also killed in a separate attack in the village of Doma in the northwestern state of Katsin... | Publicly Documented |

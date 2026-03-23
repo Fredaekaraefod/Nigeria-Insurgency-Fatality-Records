@@ -1,0 +1,7 @@
+# Boko Haram Incidents: Batch 51 (July 2025 – September 2025)
+
+| Incident_ID | Date | State | City/Town/Village | Type of Attack | Estimated Fatalities | Primary Source | Secondary Source(s) | Summary | Verification Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BH-827 | 2025-07-04 | Unknown | Kwallajiya | Armed Attack | 11 | [Wikipedia Timeline](https://en.wikipedia.org/wiki/Timeline_of_the_Boko_Haram_insurgency) | Open Source Extracts | 11 people were killed in an ISWAP attack in the town of Malam Fatori on the border with Niger and another 17 killed in a separate Lakurawa jihadist attack in Kwallajiya village, Sokoto state, Nigeria.&#91;717&#93; | Publicly Documented |
+| BH-828 | 2025-08-19 | Unknown | Unguwan Mantau | Armed Attack | Unknown | [Wikipedia Timeline](https://en.wikipedia.org/wiki/Timeline_of_the_Boko_Haram_insurgency) | Open Source Extracts | at least 50 civilians were killed in an attack by gunmen on a mosque in Unguwan Mantau village , in Malumfashi district in northwestern Nigeria.&#91;718&#93; | Publicly Documented |
+| BH-829 | 2025-09-05 | Unknown | Unknown | Armed Attack | 63 | [Wikipedia Timeline](https://en.wikipedia.org/wiki/Timeline_of_the_Boko_Haram_insurgency) | Open Source Extracts | At least 63 people were killed in a jihadist attack on the town of Darul Jamal, which hosts a Nigerian military base on the Nigeria-Cameroon border.&#91;719&#93; | Publicly Documented |

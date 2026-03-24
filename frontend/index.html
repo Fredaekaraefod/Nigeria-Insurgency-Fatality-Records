@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NL Investigator | Boko Haram Conflict Registry</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for premium UI -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-box">
+                <i class="ph-fill ph-radar"></i>
+                <h2>NL Investigator</h2>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#" class="active"><i class="ph ph-magnifying-glass"></i> New Query</a>
+                <a href="#"><i class="ph ph-database"></i> Database Stats</a>
+                <a href="#"><i class="ph ph-gear"></i> Agent Config</a>
+            </nav>
+
+            <div class="db-status">
+                <div class="status-indicator online"></div>
+                <span>SQLite DB: Connected</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Workspace -->
+        <main class="workspace">
+            <header class="topbar">
+                <h1>Conflict Data Terminal</h1>
+                <div class="badge">Historical Overview: 2009 - 2026</div>
+            </header>
+
+            <div class="query-section">
+                <div class="input-wrapper">
+                    <i class="ph ph-terminal-window"></i>
+                    <input type="text" id="queryInput" placeholder="Ask anything, e.g., 'Show me all suicide bombings in Yobe state where fatalities > 10 in 2018'" autocomplete="off">
+                    <button id="submitBtn">Investigate <i class="ph ph-arrow-right"></i></button>
+                </div>
+                <div class="suggestions">
+                    <span class="suggestion-chip" onclick="document.getElementById('queryInput').value=this.innerText">How many total fatalities occurred in Borno in 2020?</span>
+                    <span class="suggestion-chip" onclick="document.getElementById('queryInput').value=this.innerText">List all ambush attacks reported by Amnesty International.</span>
+                    <span class="suggestion-chip" onclick="document.getElementById('queryInput').value=this.innerText">Count incidents per year where town is Chibok.</span>
+                </div>
+            </div>
+
+            <!-- Two Column Layout for Output -->
+            <div class="results-grid">
+                
+                <!-- Agent Thought Process Pane -->
+                <div class="panel agent-panel">
+                    <div class="panel-header">
+                        <h3><i class="ph ph-cpu"></i> Agent Thought Stream</h3>
+                        <div class="spinner" id="agentSpinner"></div>
+                    </div>
+                    <div class="thought-stream" id="thoughtStream">
+                        <div class="log-entry system">Awaiting user query...</div>
+                    </div>
+                </div>
+
+                <!-- Final Output Pane -->
+                <div class="panel result-panel">
+                    <div class="panel-header">
+                        <h3><i class="ph ph-presentation-chart"></i> Analysis Output</h3>
+                    </div>
+                    <div class="result-content" id="resultContent">
+                        <div class="empty-state">
+                            <i class="ph ph-chart-line-up"></i>
+                            <p>Query results and generated SQL will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,82 +1,44 @@
-### 🎯 Project Purpose
-This repository is a structured research initiative to compile *publicly verified* data on killings linked to the Boko Haram insurgency in Northern Nigeria (2009–present).  
-The goal is to build a transparent, research-grade dataset that documents what has been recorded—and more importantly—what has been forgotten.
+# Natural Language Investigator | Boko Haram Conflict Registry (2009 - 2026)
+
+Welcome to the **Natural Language Investigator**, an AI-powered analytical dashboard that allows researchers, journalists, and competition judges to query over a decade of Boko Haram conflict data using plain English.
+
+## Features
+- **Conversational Interface:** Ask complex spatial and temporal questions like *"List all ambush attacks reported by Amnesty International"* and instantly receive accurate, verifiable facts.
+- **Agentic AI Architecture:** Powered entirely by **Meta's LLaMA-3.3 70B** model (running via Groq API) utilizing a resilient **Zero-Shot ReAct** architecture. The AI physically authors, executes, and parses SQL database queries in real-time, functioning completely autonomously as an intelligent database querying agent.
+- **Thought Stream UI:** An exclusive, dark-mode terminal layout built purely on raw HTML/CSS/JS that streams the LLM's internal JSON actions, SQL formations, and observations so you can track *exactly* how the AI arrived at its conclusion in real-time.
 
 ---
 
-### 📂 What This Dataset Includes
-Each event is manually structured with the following fields:
-
-| Field | Description |
-|-------|-------------|
-| Incident_ID | Unique identifier for each recorded attack |
-| Date | YYYY-MM-DD |
-| State | Nigerian state where the incident occurred |
-| Location | Town/City/Village |
-| Attack_Type | Bombing, ambush, abduction, raid, suicide attack, etc |
-| Estimated_Fatalities | Min–Max range if disputed |
-| Sources | Primary and secondary sources |
-| One-line Summary | Short factual description |
-| Verification Status | Confirmed / Probable / Disputed |
+## Data Sources
+This project's monolithic database (`incidents.db`) spans 831 isolated, strictly-verified conflict events seamlessly aggregated from multiple prestigious tracking registries over the past two days:
+- **Nigeria Security Tracker (NST):** The Council on Foreign Relations' highly structured dataset (`NST-Main Sheet.xlsx`).
+- **Wikipedia Timelines:** Fully scraped, parsed, and verified monthly incident timelines spanning from 2009 to 2026.
+- **Amnesty International & Media Reports:** Secondary human-rights data independently isolated from detailed textual summaries.
+- *(All markdown data was rigorously deduplicated and verified before being injected into the unified SQLite query engine.)*
 
 ---
 
-### 📊 Data Sources Used
-Only **credible, published, and verifiable sources** are included:
+## Competition Setup & Vercel Deployment
 
-- ACLED (Armed Conflict Location & Event Data Project)  
-- Amnesty International  
-- Human Rights Watch  
-- United Nations Reports (UNDP, OCHA, UNHCR)  
-- International Crisis Group  
-- Reuters, BBC, Al Jazeera, AP, Premium Times, GuardianNG, ChannelsTV  
-- Academic and field-based conflict research  
-- Nigerian government press releases (verified only)
+This project is meticulously engineered to deploy seamlessly to **Vercel** serverless environments for instant demonstration.
 
-⚠️ No unverified social media, blogs, political commentary, or rumor-based content.
+### Cloud Live Hosting (Vercel)
+The backend (`backend/main.py`) operates as a Python Serverless Function mapped natively via `vercel.json` alongside the frontend visual dashboard. 
 
----
+To deploy your own copy instantly to the cloud:
+1. Connect this GitHub repository to your Vercel Account.
+2. In the Vercel Dashboard, navigate to **Settings > Environment Variables**.
+3. Add a Variable named **`GROQ_API_KEY`** and securely paste your free API key from [console.groq.com](https://console.groq.com/keys).
+4. Click Deploy. The frontend UI will automatically fetch results directly from your live serverless agent.
 
-### 📌 Scope & Limitations
-- **Geographical Focus**: Northern Nigeria (Borno, Yobe, Adamawa, Gombe, Bauchi, Kaduna, Kano, Niger, Plateau, etc.)
-- **Timeframe**: 2009 — Present  
-- **Conflict Group**: Boko Haram (future versions may cover ISWAP and related insurgent groups)
-
-This dataset does *not* aim to estimate undocumented or unverifiable deaths. It strictly catalogs **publicly documented and source-verifiable incidents**.
-
----
-
-### 🔄 Project Status
-| Phase | Status |
-|-------|--------|
-| Data sourcing | 🟩 Ongoing |
-| Data cleaning | 🟨 In progress |
-| Structuring into CSV/JSON | 🟨 In progress |
-| GitHub documentation | 🟩 Active |
-| Expansion to ISWAP & Banditry | ⬜ Not yet started |
-
----
-
-### 🤝 How You Can Contribute
-Seeking contributors with access to any of the following:
-
-📌 Field research studies  
-📌 NGO policy reports  
-📌 Archived local newspapers  
-📌 PhD theses or conflict analytics files  
-📌 Verified conflict datasets  
-
-You may submit via:
-- Email: **fredaefod@gmail.com**
-- GitHub issue or pull request
-- Comment on LinkedIn announcement post
-
----
-
-
----
-
-### 📧 Contact
-**Maintainer:** Freda Efod  
-**Email:** fredaefod@gmail.com  
-**LinkedIn:** https://www.linkedin.com/in/freda-efod-54a514137?originalSubdomain=ng
+### Running Locally (For Judges or Developers)
+1. Ensure Python is installed on your machine.
+2. Run `pip install -r requirements.txt`.
+3. Set your environment key: 
+   - Windows: `set GROQ_API_KEY=your_key_here`
+   - Mac/Linux: `export GROQ_API_KEY=your_key_here`
+4. Launch the local FastAPI server dynamically: 
+   ```bash
+   uvicorn backend.main:app --reload
+   ```
+5. Open `frontend/index.html` locally in any modern web browser to access the dashboard.

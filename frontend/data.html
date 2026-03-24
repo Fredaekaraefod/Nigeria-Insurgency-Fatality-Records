@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Data View | Boko Haram Conflict Registry</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for premium UI -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .table-container {
+            margin-top: 20px;
+            overflow-x: auto;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Inter', sans-serif;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #d1d5db;
+        }
+        th {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #9ca3af;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .error-message {
+            color: #ef4444;
+            padding: 20px;
+        }
+        .summary-cell {
+            max-width: 400px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-box">
+                <i class="ph-fill ph-radar"></i>
+                <h2>NL Investigator</h2>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="index.html"><i class="ph ph-magnifying-glass"></i> New Query</a>
+                <a href="data.html" class="active"><i class="ph ph-table"></i> Raw Data View</a>
+                <a href="#"><i class="ph ph-database"></i> Database Stats</a>
+                <a href="#"><i class="ph ph-gear"></i> Agent Config</a>
+            </nav>
+
+            <div class="db-status">
+                <div class="status-indicator online"></div>
+                <span>SQLite DB: Connected</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Workspace -->
+        <main class="workspace">
+            <header class="topbar">
+                <h1>Raw Incidents Database</h1>
+                <div class="badge">Offline / No AI Calls</div>
+            </header>
+
+            <div class="query-section search-bar">
+                <div class="input-wrapper">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search by location, state, summary, or attack type (direct DB match)..." autocomplete="off">
+                </div>
+            </div>
+
+            <div id="loadingIndicator" style="display: none; color: #9ca3af;"><i class="ph ph-spinner ph-spin"></i> Loading data...</div>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>State</th>
+                            <th>Location</th>
+                            <th>Attack Type</th>
+                            <th>Fatalities</th>
+                            <th>Summary</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody">
+                        <!-- Data rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="data.js"></script>
+</body>
+</html>

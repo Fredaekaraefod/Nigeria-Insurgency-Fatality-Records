@@ -98,6 +98,39 @@ async def investigate(req: QueryRequest):
     except Exception as e:
         return {"success": False, "error": str(e)}
 
+@app.get("/api/incidents")
+def get_incidents(q: Optional[str] = None, limit: int = 100):
+    try:
+        import sqlite3
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        
+        if q:
+            search = f"%{q}%"
+            cursor.execute('''
+                SELECT * FROM incidents 
+                WHERE summary LIKE ? OR location LIKE ? OR state LIKE ? OR attack_type LIKE ?
+                ORDER BY year DESC, month DESC, date DESC
+                LIMIT ?
+            ''', (search, search, search, search, limit))
+        else:
+            cursor.execute('''
+                SELECT * FROM incidents 
+                ORDER BY year DESC, month DESC, date DESC
+                LIMIT ?
+            ''', (limit,))
+            
+        rows = cursor.fetchall()
+        conn.close()
+        
+        return {
+            "success": True,
+            "data": [dict(row) for row in rows]
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
 @app.get("/")
 def read_root():
     return {"message": "NL Investigator API is running. Point your frontend to /api/investigate"}

@@ -1,3 +1,9 @@
+function setSearch(el) {
+    const input = document.getElementById('searchInput');
+    input.value = el.textContent.trim();
+    input.dispatchEvent(new Event('input'));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
     const dataTableBody = document.getElementById('dataTableBody');

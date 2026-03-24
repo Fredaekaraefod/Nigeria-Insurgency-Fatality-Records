@@ -42,21 +42,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderTable(rows) {
         if (!rows || rows.length === 0) {
-            dataTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 20px;">No incidents found matching your query.</td></tr>';
+            dataTableBody.innerHTML = '<div class="empty-cards"><i class="ph ph-magnifying-glass" style="font-size:32px;display:block;margin-bottom:10px;"></i>No incidents found matching your query.</div>';
             return;
         }
 
         rows.forEach(row => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${escapeHTML(row.date)}</td>
-                <td>${escapeHTML(row.state)}</td>
-                <td>${escapeHTML(row.location)}</td>
-                <td>${escapeHTML(row.attack_type)}</td>
-                <td>${escapeHTML(row.fatalities || '0')}</td>
-                <td class="summary-cell" title="${escapeHTML(row.summary)}">${escapeHTML(row.summary)}</td>
+            const fatalities = parseInt(row.fatalities) || 0;
+            const card = document.createElement('div');
+            card.className = 'incident-card';
+            card.innerHTML = `
+                <div class="card-top">
+                    <div class="card-meta">
+                        <div class="card-date">${escapeHTML(row.date)}</div>
+                        <div class="card-location">${escapeHTML(row.location || 'Unknown Location')}</div>
+                        <div class="card-state"><i class="ph ph-map-pin" style="font-size:10px;"></i> ${escapeHTML(row.state || 'Unknown State')}</div>
+                    </div>
+                    <div class="card-fatalities">
+                        <div class="fatalities-number ${fatalities === 0 ? 'zero' : ''}">${fatalities}</div>
+                        <div class="fatalities-label">fatalities</div>
+                    </div>
+                </div>
+                <div class="card-type-badge">
+                    <i class="ph ph-tag"></i>
+                    ${escapeHTML(row.attack_type || 'Unknown')}
+                </div>
+                <div class="card-summary">${escapeHTML(row.summary || 'No summary available.')}</div>
             `;
-            dataTableBody.appendChild(tr);
+            dataTableBody.appendChild(card);
         });
     }
 

@@ -40,41 +40,96 @@
             flex: 1;
             min-height: 0;
         }
-        .table-container {
+        .cards-container {
             flex: 1;
             overflow-y: auto;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
             min-height: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 12px;
+            align-content: start;
+            padding: 4px 2px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: 'Inter', sans-serif;
-            text-align: left;
+        .incident-card {
+            background: #18181b;
+            border: 1px solid #27272a;
+            border-radius: 10px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: border-color 0.2s ease, background 0.2s ease;
         }
-        th, td {
-            padding: 11px 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: #d1d5db;
+        .incident-card:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: #1c1c1f;
+        }
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .card-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .card-date {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: #10b981;
+        }
+        .card-location {
             font-size: 13px;
-        }
-        th {
-            background-color: #111113;
-            color: #9ca3af;
             font-weight: 600;
-            white-space: nowrap;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            color: #f4f4f5;
         }
-        tr:hover { background-color: rgba(255,255,255,0.04); }
-        .summary-cell {
-            max-width: 380px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .card-state {
+            font-size: 11px;
+            color: #71717a;
+        }
+        .card-fatalities {
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .fatalities-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ef4444;
+            line-height: 1;
+        }
+        .fatalities-number.zero { color: #52525b; }
+        .fatalities-label {
+            font-size: 10px;
+            color: #52525b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .card-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #a1a1aa;
+            width: fit-content;
+        }
+        .card-summary {
+            font-size: 13px;
+            color: #9ca3af;
+            line-height: 1.6;
+            border-top: 1px solid #27272a;
+            padding-top: 8px;
+        }
+        .empty-cards {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: #52525b;
         }
         .filter-buttons {
             display: flex;
@@ -257,22 +312,8 @@
                     </div>
                 </div>
 
-                <!-- Table Container (fills remaining space) -->
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>State</th>
-                                <th>Location</th>
-                                <th>Attack Type</th>
-                                <th>Fatalities</th>
-                                <th>Summary</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dataTableBody"></tbody>
-                    </table>
-                </div>
+                <!-- Incident Cards (fills remaining space) -->
+                <div class="cards-container" id="dataTableBody"></div>
             </div>
         </main>
     </div>

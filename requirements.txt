@@ -1,6 +1,2 @@
 fastapi
 uvicorn
-langchain-core
-langchain-community
-langchain-groq
-sqlalchemy

@@ -3,82 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NL Investigator | Boko Haram Conflict Registry</title>
+    <title>Boko Haram Conflict Registry | Database Explorer</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Phosphor Icons for premium UI -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .table-container {
+            margin-top: 20px;
+            overflow-x: auto;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Inter', sans-serif;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #d1d5db;
+        }
+        th {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #9ca3af;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        .search-bar {
+            margin-bottom: 10px;
+        }
+        .error-message {
+            color: #ef4444;
+            padding: 20px;
+        }
+        .summary-cell {
+            max-width: 400px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo-box">
-                <i class="ph-fill ph-radar"></i>
-                <h2>NL Investigator</h2>
+                <i class="ph-fill ph-database"></i>
+                <h2>Conflict Registry</h2>
             </div>
             
             <nav class="nav-links">
-                <a href="index.html" class="active"><i class="ph ph-magnifying-glass"></i> New Query</a>
-                <a href="data.html"><i class="ph ph-table"></i> Raw Data View</a>
-                <a href="#"><i class="ph ph-database"></i> Database Stats</a>
-                <a href="#"><i class="ph ph-gear"></i> Agent Config</a>
+                <a href="index.html" class="active"><i class="ph ph-magnifying-glass"></i> Explore Data</a>
+                <a href="#"><i class="ph ph-chart-bar"></i> Database Stats</a>
             </nav>
 
             <div class="db-status">
                 <div class="status-indicator online"></div>
-                <span>SQLite DB: Connected</span>
+                <span>Offline SQLite: Read-only</span>
             </div>
         </aside>
 
         <!-- Main Content Workspace -->
         <main class="workspace">
             <header class="topbar">
-                <h1>Conflict Data Terminal</h1>
-                <div class="badge">Historical Overview: 2009 - 2026</div>
+                <h1>Historical Incident Records</h1>
+                <div class="badge">Scope: 2009 - 2026</div>
             </header>
 
-            <div class="query-section">
+            <div class="query-section search-bar">
                 <div class="input-wrapper">
-                    <i class="ph ph-terminal-window"></i>
-                    <input type="text" id="queryInput" placeholder="Ask anything, e.g., 'Show me all suicide bombings in Yobe state where fatalities > 10 in 2018'" autocomplete="off">
-                    <button id="submitBtn">Investigate <i class="ph ph-arrow-right"></i></button>
-                </div>
-                <div class="suggestions">
-                    <span class="suggestion-chip" onclick="document.getElementById('queryInput').value=this.innerText">How many total fatalities occurred in Borno in 2020?</span>
-                    <span class="suggestion-chip" onclick="document.getElementById('queryInput').value=this.innerText">List all ambush attacks reported by Amnesty International.</span>
-                    <span class="suggestion-chip" onclick="document.getElementById('queryInput').value=this.innerText">Count incidents per year where town is Chibok.</span>
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search incidents (e.g., 'Bombing', 'Borno', '2015')..." autocomplete="off">
                 </div>
             </div>
 
-            <!-- Two Column Layout for Output -->
-            <div class="results-grid">
-                
-                <!-- Agent Thought Process Pane -->
-                <div class="panel agent-panel">
-                    <div class="panel-header">
-                        <h3><i class="ph ph-cpu"></i> Agent Thought Stream</h3>
-                        <div class="spinner" id="agentSpinner"></div>
-                    </div>
-                    <div class="thought-stream" id="thoughtStream">
-                        <div class="log-entry system">Awaiting user query...</div>
-                    </div>
-                </div>
+            <div class="filter-buttons">
+                <button class="filter-btn" onclick="document.getElementById('searchInput').value='Borno'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">🔥 Show Borno Attacks</button>
+                <button class="filter-btn" onclick="document.getElementById('searchInput').value='ambush'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">🔫 Show Ambushes</button>
+                <button class="filter-btn" onclick="document.getElementById('searchInput').value='suicide bombing'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">💥 Suicide Bombings</button>
+                <button class="filter-btn" onclick="document.getElementById('searchInput').value='Amnesty'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">📜 Amnesty Reports</button>
+                <button class="filter-btn" onclick="document.getElementById('searchInput').value=''; document.getElementById('searchInput').dispatchEvent(new Event('input'))">❌ Clear Filters</button>
+            </div>
 
-                <!-- Final Output Pane -->
-                <div class="panel result-panel">
-                    <div class="panel-header">
-                        <h3><i class="ph ph-presentation-chart"></i> Analysis Output</h3>
-                    </div>
-                    <div class="result-content" id="resultContent">
-                        <div class="empty-state">
-                            <i class="ph ph-chart-line-up"></i>
-                            <p>Query results and generated SQL will appear here.</p>
-                        </div>
-                    </div>
-                </div>
+            <div id="loadingIndicator" style="display: none; color: #9ca3af;"><i class="ph ph-spinner ph-spin"></i> Loading database records...</div>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
 
+            <!-- Chart Container -->
+            <div class="chart-container" style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.1); display: none;" id="chartWrapper">
+                <canvas id="dataChart" height="80"></canvas>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>State</th>
+                            <th>Location</th>
+                            <th>Attack Type</th>
+                            <th>Fatalities</th>
+                            <th>Summary</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody">
+                        <!-- Data rows will be inserted here -->
+                    </tbody>
+                </table>
             </div>
         </main>
     </div>

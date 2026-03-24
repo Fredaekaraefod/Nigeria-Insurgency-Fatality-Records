@@ -1,91 +1,137 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const input = document.getElementById('queryInput');
-    const submitBtn = document.getElementById('submitBtn');
-    const thoughtStream = document.getElementById('thoughtStream');
-    const resultContent = document.getElementById('resultContent');
-    const spinner = document.getElementById('agentSpinner');
+    const searchInput = document.getElementById('searchInput');
+    const dataTableBody = document.getElementById('dataTableBody');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const errorMessage = document.getElementById('errorMessage');
 
-    async function sendQuery() {
-        const query = input.value.trim();
-        if (!query) return;
+    let searchTimeout = null;
+    let myChart = null;
 
-        // Reset UI
-        thoughtStream.innerHTML = '';
-        resultContent.innerHTML = '';
-        spinner.style.display = 'block';
-        submitBtn.disabled = true;
-        
-        appendLog(`[SYSTEM] Initializing Agent...\n[USER] ${query}`, 'system');
+    async function fetchIncidents(query = '') {
+        loadingIndicator.style.display = 'block';
+        errorMessage.style.display = 'none';
+        dataTableBody.innerHTML = '';
 
         try {
-            // Pointing directly to the Vercel API Serverless route
-            const response = await fetch('/api/investigate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ query })
-            });
-
+            const url = query ? `/api/incidents?q=${encodeURIComponent(query)}` : '/api/incidents';
+            const response = await fetch(url);
             const data = await response.json();
 
             if (data.success) {
-                // Render Agent Thoughts sequentially to simulate streaming
-                let delay = 0;
-                
-                data.thought_process.forEach((step, index) => {
-                    setTimeout(() => {
-                        appendLog(`[ACTION] ${step.action}`, 'action');
-                        if (step.input) {
-                            appendLog(`[INPUT] ${step.input}`, 'query');
-                        }
-                        appendLog(`[OBSERVATION] ${step.observation}`, 'observation');
-                    }, delay);
-                    delay += 600; // Simulated typing / thinking block delay
-                });
-
-                // Render Final Output after thoughts finish typing
-                setTimeout(() => {
-                    renderFinalResult(data.final_answer, data.sql_query);
-                    spinner.style.display = 'none';
-                    submitBtn.disabled = false;
-                    appendLog('[SYSTEM] Execution Complete.', 'system');
-                }, delay + 500);
-
+                renderTable(data.data);
+                renderChart(data.data);
             } else {
-                appendLog(`[ERROR] ${data.error}`, 'observation');
-                spinner.style.display = 'none';
-                submitBtn.disabled = false;
+                showError(data.error);
             }
-
         } catch (err) {
-            appendLog(`[SYSTEM FATAL ERROR] Backend not reachable. Ensure FastAPI server is running on localhost:8000.`, 'observation');
-            spinner.style.display = 'none';
-            submitBtn.disabled = false;
+            showError('Could not connect to the backend server. Is it running?');
+        } finally {
+            loadingIndicator.style.display = 'none';
         }
     }
 
-    function appendLog(text, type) {
-        const div = document.createElement('div');
-        div.className = `log-entry ${type}`;
-        div.textContent = text;
-        thoughtStream.appendChild(div);
-        thoughtStream.scrollTop = thoughtStream.scrollHeight;
-    }
+    function renderTable(rows) {
+        if (!rows || rows.length === 0) {
+            dataTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 20px;">No incidents found matching your query.</td></tr>';
+            return;
+        }
 
-    function renderFinalResult(answer, sql) {
-        let html = `<div class="final-answer">${answer}</div>`;
-        
-        if (sql && sql !== "No SQL query generated.") {
-            html += `
-                <div class="sql-badge"><i class="ph-fill ph-database"></i> Executed Query</div>
-                <div class="sql-block">${sql}</div>
+        rows.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${escapeHTML(row.date)}</td>
+                <td>${escapeHTML(row.state)}</td>
+                <td>${escapeHTML(row.location)}</td>
+                <td>${escapeHTML(row.attack_type)}</td>
+                <td>${escapeHTML(row.fatalities || '0')}</td>
+                <td class="summary-cell" title="${escapeHTML(row.summary)}">${escapeHTML(row.summary)}</td>
             `;
-        }
-        
-        resultContent.innerHTML = html;
+            dataTableBody.appendChild(tr);
+        });
     }
 
-    submitBtn.addEventListener('click', sendQuery);
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendQuery();
+    function renderChart(rows) {
+        const chartWrapper = document.getElementById('chartWrapper');
+        if (!rows || rows.length === 0) {
+            chartWrapper.style.display = 'none';
+            return;
+        }
+        
+        chartWrapper.style.display = 'block';
+
+        // Aggregate data by Attack Type
+        const attackCounts = {};
+        rows.forEach(row => {
+            const type = row.attack_type || 'Unknown';
+            attackCounts[type] = (attackCounts[type] || 0) + 1;
+        });
+
+        const labels = Object.keys(attackCounts);
+        const data = Object.values(attackCounts);
+
+        if (myChart) {
+            myChart.destroy();
+        }
+
+        const ctx = document.getElementById('dataChart').getContext('2d');
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Incidents by Attack Type',
+                    data: data,
+                    backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: { color: '#d1d5db', font: { family: 'Inter' } }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#9ca3af', stepSize: 1 },
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                    },
+                    x: {
+                        ticks: { color: '#9ca3af' },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    }
+
+    function showError(msg) {
+        errorMessage.textContent = msg;
+        errorMessage.style.display = 'block';
+    }
+
+    function escapeHTML(str) {
+        if (!str) return '';
+        return str.toString()
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    // Initial load
+    fetchIncidents();
+
+    // Search input event listener with debounce
+    searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            fetchIncidents(e.target.value.trim());
+        }, 300); // 300ms debounce
     });
 });

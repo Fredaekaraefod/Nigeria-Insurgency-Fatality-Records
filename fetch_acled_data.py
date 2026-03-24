@@ -6,7 +6,7 @@ import math
 # --- ACLED API CONFIGURATION ---
 # Please replace with your registered ACLED email and access key.
 # Register for free at: https://developer.acleddata.com/
-EMAIL = "YOUR_EMAIL_HERE"
+EMAIL = "fredaefod@gmail.com"
 ACCESS_KEY = "YOUR_ACCESS_KEY_HERE"
 
 def fetch_acled_data(start_year=2016, end_year=2025):

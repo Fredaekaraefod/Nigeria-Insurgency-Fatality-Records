@@ -11,9 +11,34 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        .dashboard-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: calc(100vh - 220px);
+        }
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            min-height: 250px;
+            max-height: 300px;
+            display: none;
+        }
+        .chart-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            position: relative;
+        }
+        .chart-box canvas {
+            max-height: 100%;
+            width: 100%;
+        }
         .table-container {
-            margin-top: 20px;
-            overflow-x: auto;
+            flex-grow: 1;
+            overflow-y: auto;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
@@ -34,6 +59,9 @@
             color: #9ca3af;
             font-weight: 600;
             white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         tr:hover {
             background-color: rgba(255, 255, 255, 0.05);
@@ -54,23 +82,35 @@
         .filter-buttons {
             display: flex;
             gap: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
         }
         .filter-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: #9ca3af;
-            padding: 6px 14px;
-            border-radius: 20px;
+            padding: 8px 16px;
+            border-radius: 6px;
             font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.2s ease;
             font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .filter-btn:hover {
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .chart-header {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -85,7 +125,7 @@
             
             <nav class="nav-links">
                 <a href="index.html" class="active"><i class="ph ph-magnifying-glass"></i> Explore Data</a>
-                <a href="#"><i class="ph ph-chart-bar"></i> Database Stats</a>
+                <a href="/api/download-db" target="_blank"><i class="ph ph-download-simple"></i> Download DB</a>
             </nav>
 
             <div class="db-status">
@@ -109,37 +149,63 @@
             </div>
 
             <div class="filter-buttons">
-                <button class="filter-btn" onclick="document.getElementById('searchInput').value='Borno'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">🔥 Show Borno Attacks</button>
-                <button class="filter-btn" onclick="document.getElementById('searchInput').value='ambush'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">🔫 Show Ambushes</button>
-                <button class="filter-btn" onclick="document.getElementById('searchInput').value='suicide bombing'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">💥 Suicide Bombings</button>
-                <button class="filter-btn" onclick="document.getElementById('searchInput').value='Amnesty'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">📜 Amnesty Reports</button>
-                <button class="filter-btn" onclick="document.getElementById('searchInput').value=''; document.getElementById('searchInput').dispatchEvent(new Event('input'))">❌ Clear Filters</button>
+                <button class="filter-btn" onclick="document.getElementById('searchInput').value='Borno'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">
+                    <i class="ph ph-map-pin"></i> Borno Attacks
+                </button>
+                <button class="filter-btn" onclick="document.getElementById('searchInput').value='ambush'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">
+                    <i class="ph ph-crosshair"></i> Ambushes
+                </button>
+                <button class="filter-btn" onclick="document.getElementById('searchInput').value='suicide bombing'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">
+                    <i class="ph ph-warning-circle"></i> Suicide Bombings
+                </button>
+                <button class="filter-btn" onclick="document.getElementById('searchInput').value='Amnesty'; document.getElementById('searchInput').dispatchEvent(new Event('input'))">
+                    <i class="ph ph-scroll"></i> Amnesty Reports
+                </button>
+                <button class="filter-btn" onclick="document.getElementById('searchInput').value=''; document.getElementById('searchInput').dispatchEvent(new Event('input'))">
+                    <i class="ph ph-x-circle"></i> Clear Filters
+                </button>
             </div>
 
-            <div id="loadingIndicator" style="display: none; color: #9ca3af;"><i class="ph ph-spinner ph-spin"></i> Loading database records...</div>
+            <div id="loadingIndicator" style="display: none; color: #9ca3af; margin-bottom: 15px;"><i class="ph ph-spinner ph-spin"></i> Loading records...</div>
             <div id="errorMessage" class="error-message" style="display: none;"></div>
 
-            <!-- Chart Container -->
-            <div class="chart-container" style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.1); display: none;" id="chartWrapper">
-                <canvas id="dataChart" height="80"></canvas>
-            </div>
+            <div class="dashboard-grid">
+                
+                <!-- Charts Row (Approx 1/4th height) -->
+                <div class="charts-row" id="chartsRow">
+                    <div class="chart-box">
+                        <div class="chart-header">Incident Types Distribution</div>
+                        <div style="position: relative; height: calc(100% - 25px); width: 100%;">
+                            <canvas id="typeChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-box">
+                        <div class="chart-header">Reported Fatalities Timeline</div>
+                        <div style="position: relative; height: calc(100% - 25px); width: 100%;">
+                            <canvas id="timeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>State</th>
-                            <th>Location</th>
-                            <th>Attack Type</th>
-                            <th>Fatalities</th>
-                            <th>Summary</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dataTableBody">
-                        <!-- Data rows will be inserted here -->
-                    </tbody>
-                </table>
+                <!-- Table Container -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>State</th>
+                                <th>Location</th>
+                                <th>Attack Type</th>
+                                <th>Fatalities</th>
+                                <th>Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableBody">
+                            <!-- Data rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </main>
     </div>

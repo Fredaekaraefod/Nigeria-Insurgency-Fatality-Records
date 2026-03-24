@@ -5,7 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessage = document.getElementById('errorMessage');
 
     let searchTimeout = null;
-    let myChart = null;
+    let typeChartInstance = null;
+    let timeChartInstance = null;
+
+    Chart.defaults.color = '#9ca3af';
+    Chart.defaults.font.family = 'Inter';
 
     async function fetchIncidents(query = '') {
         loadingIndicator.style.display = 'block';
@@ -19,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (data.success) {
                 renderTable(data.data);
-                renderChart(data.data);
+                renderCharts(data.data);
             } else {
                 showError(data.error);
             }
@@ -50,59 +54,104 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function renderChart(rows) {
-        const chartWrapper = document.getElementById('chartWrapper');
+    function renderCharts(rows) {
+        const chartsRow = document.getElementById('chartsRow');
         if (!rows || rows.length === 0) {
-            chartWrapper.style.display = 'none';
+            chartsRow.style.display = 'none';
             return;
         }
         
-        chartWrapper.style.display = 'block';
+        chartsRow.style.display = 'grid';
 
-        // Aggregate data by Attack Type
-        const attackCounts = {};
-        rows.forEach(row => {
-            const type = row.attack_type || 'Unknown';
-            attackCounts[type] = (attackCounts[type] || 0) + 1;
+        // 1. Process data for Doughnut Chart (Attack Types)
+        const typeCounts = {};
+        rows.forEach(r => {
+            const type = r.attack_type || 'Unknown';
+            typeCounts[type] = (typeCounts[type] || 0) + 1;
         });
 
-        const labels = Object.keys(attackCounts);
-        const data = Object.values(attackCounts);
+        const typeLabels = Object.keys(typeCounts);
+        const typeData = Object.values(typeCounts);
 
-        if (myChart) {
-            myChart.destroy();
-        }
+        // 2. Process data for Line Chart (Fatalities over time/Year-Month)
+        // Sort rows by Date ascending for timeline
+        const sortedRows = [...rows].sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        const timeFatalityMap = {};
+        sortedRows.forEach(r => {
+            if(!r.year) return;
+            const period = r.month ? `${r.year}-${String(r.month).padStart(2, '0')}` : `${r.year}`;
+            timeFatalityMap[period] = (timeFatalityMap[period] || 0) + (parseInt(r.fatalities) || 0);
+        });
 
-        const ctx = document.getElementById('dataChart').getContext('2d');
-        myChart = new Chart(ctx, {
-            type: 'bar',
+        const timeLabels = Object.keys(timeFatalityMap);
+        const timeData = Object.values(timeFatalityMap);
+
+        // --- Render Type Chart (Doughnut) ---
+        if (typeChartInstance) typeChartInstance.destroy();
+        const ctxType = document.getElementById('typeChart').getContext('2d');
+        typeChartInstance = new Chart(ctxType, {
+            type: 'doughnut',
             data: {
-                labels: labels,
+                labels: typeLabels,
                 datasets: [{
-                    label: 'Incidents by Attack Type',
-                    data: data,
-                    backgroundColor: 'rgba(59, 130, 246, 0.6)',
-                    borderColor: 'rgba(59, 130, 246, 1)',
-                    borderWidth: 1,
-                    borderRadius: 4
+                    data: typeData,
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(239, 68, 68, 0.8)',
+                        'rgba(139, 92, 246, 0.8)'
+                    ],
+                    borderColor: 'rgba(0,0,0,0.2)',
+                    borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        labels: { color: '#d1d5db', font: { family: 'Inter' } }
+                        position: 'right',
+                        labels: { boxWidth: 12, font: { size: 10 } }
                     }
+                }
+            }
+        });
+
+        // --- Render Time Chart (Line) ---
+        if (timeChartInstance) timeChartInstance.destroy();
+        const ctxTime = document.getElementById('timeChart').getContext('2d');
+        timeChartInstance = new Chart(ctxTime, {
+            type: 'line',
+            data: {
+                labels: timeLabels,
+                datasets: [{
+                    label: 'Fatalities',
+                    data: timeData,
+                    borderColor: 'rgba(239, 68, 68, 1)',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    pointBackgroundColor: 'rgba(239, 68, 68, 1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
-                        ticks: { color: '#9ca3af', stepSize: 1 },
                         grid: { color: 'rgba(255, 255, 255, 0.05)' }
                     },
                     x: {
-                        ticks: { color: '#9ca3af' },
-                        grid: { display: false }
+                        grid: { display: false },
+                        ticks: { maxRotation: 45, minRotation: 45, font: {size: 10} }
                     }
                 }
             }
@@ -127,11 +176,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial load
     fetchIncidents();
 
-    // Search input event listener with debounce
+    // Search input debounce
     searchInput.addEventListener('input', (e) => {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
             fetchIncidents(e.target.value.trim());
-        }, 300); // 300ms debounce
+        }, 300);
     });
 });

@@ -1,6 +1,7 @@
 import os
 import sqlite3
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 
@@ -47,6 +48,12 @@ def get_incidents(q: Optional[str] = None, limit: int = 100):
         }
     except Exception as e:
         return {"success": False, "error": str(e)}
+
+@app.get("/api/download-db")
+def download_db():
+    if os.path.exists(DB_PATH):
+        return FileResponse(path=DB_PATH, filename="incidents.db", media_type="application/octet-stream")
+    return {"error": "Database file not found."}
 
 @app.get("/")
 def read_root():

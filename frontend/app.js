@@ -4,6 +4,11 @@ function setSearch(el) {
     input.dispatchEvent(new Event('input'));
 }
 
+window.downloadFile = function(path) {
+    const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:8000' : '';
+    window.open(`${API_BASE}${path}`, '_blank');
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
     const dataTableBody = document.getElementById('dataTableBody');

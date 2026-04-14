@@ -1,7 +1,9 @@
 import os
 import sqlite3
+import csv
+import io
 from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 
@@ -54,6 +56,37 @@ def download_db():
     if os.path.exists(DB_PATH):
         return FileResponse(path=DB_PATH, filename="incidents.db", media_type="application/octet-stream")
     return {"error": "Database file not found."}
+
+@app.get("/api/download-csv")
+def download_csv():
+    try:
+        if not os.path.exists(DB_PATH):
+            return {"error": "Database file not found."}
+            
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM incidents ORDER BY year DESC, month DESC, date DESC')
+        rows = cursor.fetchall()
+        conn.close()
+
+        output = io.StringIO()
+        if not rows:
+            return {"error": "No data available."}
+            
+        writer = csv.DictWriter(output, fieldnames=rows[0].keys())
+        writer.writeheader()
+        for row in rows:
+            writer.writerow(dict(row))
+            
+        output.seek(0)
+        return StreamingResponse(
+            iter([output.getvalue()]), 
+            media_type="text/csv", 
+            headers={"Content-Disposition": "attachment; filename=incidents.csv"}
+        )
+    except Exception as e:
+        return {"error": str(e)}
 
 @app.get("/")
 def read_root():

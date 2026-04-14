@@ -53,15 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         rows.forEach(row => {
-            const fatalities = parseInt(row.fatalities) || 0;
+            const fatalities = parseInt(row["Fatalities"]) || 0;
             const card = document.createElement('div');
             card.className = 'incident-card';
             card.innerHTML = `
                 <div class="card-top">
                     <div class="card-meta">
-                        <div class="card-date">${escapeHTML(row.date)}</div>
-                        <div class="card-location">${escapeHTML(row.location !== 'Unknown' && row.location ? row.location : (row.state !== 'Unknown' && row.state ? row.state : 'Unspecified Area'))}</div>
-                        <div class="card-state"><i class="ph ph-map-pin" style="font-size:10px;"></i> ${escapeHTML(row.state !== 'Unknown' && row.state ? row.state : '-')}</div>
+                        <div class="card-date">${escapeHTML(row["Date"])}</div>
+                        <div class="card-location">${escapeHTML(row["Location"] !== 'Unknown' && row["Location"] ? row["Location"] : (row["State"] !== 'Unknown' && row["State"] ? row["State"] : 'Unspecified Area'))}</div>
+                        <div class="card-state"><i class="ph ph-map-pin" style="font-size:10px;"></i> ${escapeHTML(row["State"] !== 'Unknown' && row["State"] ? row["State"] : '-')}</div>
                     </div>
                     <div class="card-fatalities">
                         <div class="fatalities-number ${fatalities === 0 ? 'zero' : ''}">${fatalities}</div>
@@ -70,9 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="card-type-badge">
                     <i class="ph ph-tag"></i>
-                    ${escapeHTML(row.attack_type || 'Unknown')}
+                    ${escapeHTML(row["Attack type"] || 'Unknown')}
                 </div>
-                <div class="card-summary">${escapeHTML(row.summary || 'No summary available.')}</div>
+                <div class="card-summary">${escapeHTML(row["Summary"] || 'No summary available.')}</div>
             `;
             dataTableBody.appendChild(card);
         });
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 1. Process data for Doughnut Chart (Attack Types)
         const typeCounts = {};
         rows.forEach(r => {
-            const type = r.attack_type || 'Unknown';
+            const type = r["Attack type"] || 'Unknown';
             typeCounts[type] = (typeCounts[type] || 0) + 1;
         });
 
@@ -99,13 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 2. Process data for Line Chart (Fatalities over time/Year-Month)
         // Sort rows by Date ascending for timeline
-        const sortedRows = [...rows].sort((a, b) => new Date(a.date) - new Date(b.date));
+        const sortedRows = [...rows].sort((a, b) => new Date(a["Date"]) - new Date(b["Date"]));
         
         const timeFatalityMap = {};
         sortedRows.forEach(r => {
-            if(!r.year) return;
-            const period = r.month ? `${r.year}-${String(r.month).padStart(2, '0')}` : `${r.year}`;
-            timeFatalityMap[period] = (timeFatalityMap[period] || 0) + (parseInt(r.fatalities) || 0);
+            if(!r["Year"]) return;
+            const period = r["Month name"] && r["Month name"] !== "Unknown" ? `${r["Year"]}-${r["Month name"].substring(0,3)}` : `${r["Year"]}`;
+            timeFatalityMap[period] = (timeFatalityMap[period] || 0) + (parseInt(r["Fatalities"]) || 0);
         });
 
         const timeLabels = Object.keys(timeFatalityMap);

@@ -30,14 +30,14 @@ def get_incidents(q: Optional[str] = None, limit: int = 100):
             search = f"%{q}%"
             cursor.execute('''
                 SELECT * FROM incidents 
-                WHERE summary LIKE ? OR location LIKE ? OR state LIKE ? OR attack_type LIKE ?
-                ORDER BY year DESC, month DESC, date DESC
+                WHERE "Summary" LIKE ? OR "Location" LIKE ? OR "State" LIKE ? OR "Attack type" LIKE ?
+                ORDER BY "Year" DESC, "Month" DESC, "Date" DESC
                 LIMIT ?
             ''', (search, search, search, search, limit))
         else:
             cursor.execute('''
                 SELECT * FROM incidents 
-                ORDER BY year DESC, month DESC, date DESC
+                ORDER BY "Year" DESC, "Month" DESC, "Date" DESC
                 LIMIT ?
             ''', (limit,))
             
@@ -66,7 +66,7 @@ def download_csv():
         conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM incidents ORDER BY year DESC, month DESC, date DESC')
+        cursor.execute('SELECT * FROM incidents ORDER BY "Year" DESC, "Month" DESC, "Date" DESC')
         rows = cursor.fetchall()
         conn.close()
 

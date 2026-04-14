@@ -1,6 +1,7 @@
 import os
 import sqlite3
 import re
+import calendar
 
 DATA_DIR = r"c:\Users\User\Documents\Boko haram research"
 DB_FILE = os.path.join(DATA_DIR, "incidents.db")
@@ -93,18 +94,19 @@ def build_database():
     # Create the incidents table optimized for SQL querying
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS incidents (
-            incident_id TEXT PRIMARY KEY,
-            date TEXT,
-            year INTEGER,
-            month INTEGER,
-            state TEXT,
-            location TEXT,
-            attack_type TEXT,
-            fatalities INTEGER,
-            primary_source TEXT,
-            secondary_source TEXT,
-            summary TEXT,
-            verification_status TEXT
+            "Incident id" TEXT PRIMARY KEY,
+            "Date" TEXT,
+            "Year" INTEGER,
+            "Month" INTEGER,
+            "Month name" TEXT,
+            "State" TEXT,
+            "Location" TEXT,
+            "Attack type" TEXT,
+            "Fatalities" INTEGER,
+            "Primary source" TEXT,
+            "Secondary source" TEXT,
+            "Summary" TEXT,
+            "Verification status" TEXT
         )
     ''')
     
@@ -129,7 +131,7 @@ def build_database():
                             continue
                             
                         # If incident already in db, skip entirely to prevent primary key issues when batches overlap
-                        cursor.execute("SELECT incident_id FROM incidents WHERE incident_id=?", (inc_id,))
+                        cursor.execute('SELECT "Incident id" FROM incidents WHERE "Incident id"=?', (inc_id,))
                         if cursor.fetchone():
                             continue
                             
@@ -161,11 +163,13 @@ def build_database():
                             except ValueError:
                                 pass
                                 
+                        month_name = calendar.month_name[month] if 1 <= month <= 12 else "Unknown"
+
                         cursor.execute('''
                             INSERT INTO incidents 
-                            (incident_id, date, year, month, state, location, attack_type, fatalities, primary_source, secondary_source, summary, verification_status)
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                        ''', (inc_id, date_str, year, month, state, location, attack_type, fatalities, primary_source, secondary_source, summary, status))
+                            ("Incident id", "Date", "Year", "Month", "Month name", "State", "Location", "Attack type", "Fatalities", "Primary source", "Secondary source", "Summary", "Verification status")
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ''', (inc_id, date_str, year, month, month_name, state, location, attack_type, fatalities, primary_source, secondary_source, summary, status))
                         
                         total_inserted += 1
                         

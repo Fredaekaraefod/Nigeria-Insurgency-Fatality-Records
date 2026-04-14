@@ -24,7 +24,7 @@ def extract_fatalities(summary, current_fatality):
         
     patterns = [
         r'(\d+)\s+(?:[A-Za-z\-]+\s+){0,6}(?:were\s|are\s|was\s|is\s)?(?:killed|dead|slain|neutralized|died|massacred|murdered|assassinated|killing|beheaded|executed)',
-        r'(?:killed|dead|slain|neutralized|died|massacred|murdered|assassinated|killing|beheaded|executed)\s+(?:at\s+least\s+|about\s+|nearly\s+|up\s+to\s+|over\s+|an\s+|a\s+)?(\d+)'
+        r'(?:killed|dead|slain|neutralized|died|massacred|murdered|assassinated|killing|beheaded|executed|deaths?\s+of)\s+(?:at\s+least\s+|about\s+|nearly\s+|up\s+to\s+|over\s+|an\s+|a\s+)?(\d+)'
     ]
     
     max_f = 0
@@ -46,7 +46,7 @@ def extract_fatalities(summary, current_fatality):
     if max_f == 0:
         for w, val in word_map.items():
             p1 = fr'\b{w}\b\s+(?:[A-Za-z\-]+\s+){{0,6}}(?:were\s+|was\s+|are\s+|is\s+)?(?:killed|dead|slain|neutralized|died|massacred|murdered|assassinated|beheaded|executed)'
-            p2 = fr'(?:killed|dead|slain|neutralized|died|massacred|killing|beheaded|executed)\s+(?:at\s+least\s+|about\s+|nearly\s+|up\s+to\s+|over\s+)?\b{w}\b'
+            p2 = fr'(?:killed|dead|slain|neutralized|died|massacred|killing|beheaded|executed|deaths?\s+of)\s+(?:at\s+least\s+|about\s+|nearly\s+|up\s+to\s+|over\s+)?\b{w}\b'
             if re.search(p1, summary, re.IGNORECASE) or re.search(p2, summary, re.IGNORECASE):
                 if val > max_f:
                     max_f = val

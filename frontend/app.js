@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
         dataTableBody.innerHTML = '';
 
         try {
-            const url = query ? `/api/incidents?q=${encodeURIComponent(query)}` : '/api/incidents';
+            const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:8000' : '';
+            const url = query ? `${API_BASE}/api/incidents?q=${encodeURIComponent(query)}` : `${API_BASE}/api/incidents`;
             const response = await fetch(url);
             const data = await response.json();
 
@@ -54,8 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="card-top">
                     <div class="card-meta">
                         <div class="card-date">${escapeHTML(row.date)}</div>
-                        <div class="card-location">${escapeHTML(row.location || 'Unknown Location')}</div>
-                        <div class="card-state"><i class="ph ph-map-pin" style="font-size:10px;"></i> ${escapeHTML(row.state || 'Unknown State')}</div>
+                        <div class="card-location">${escapeHTML(row.location !== 'Unknown' && row.location ? row.location : (row.state !== 'Unknown' && row.state ? row.state : 'Unspecified Area'))}</div>
+                        <div class="card-state"><i class="ph ph-map-pin" style="font-size:10px;"></i> ${escapeHTML(row.state !== 'Unknown' && row.state ? row.state : '-')}</div>
                     </div>
                     <div class="card-fatalities">
                         <div class="fatalities-number ${fatalities === 0 ? 'zero' : ''}">${fatalities}</div>
